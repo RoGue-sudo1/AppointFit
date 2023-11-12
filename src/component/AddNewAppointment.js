@@ -19,7 +19,7 @@ function AddNewAppointment() {
 
       <div className="mt-16 flex justify-center">
         <div className="bg-teal-700 p-2 rounded-md ">
-          <form onSubmit={(e)=>e.preventDefault()} >
+          <form onSubmit={(e)=>e.preventDefault()} className="flex-row" >
             <label for="first_name" className="font-bold">First Name : </label>
             <input
               type="text"

@@ -1,6 +1,6 @@
 
 import Header from "./Header"
-import MainContainer from "./MainContainer"
+import MainContainer from "./appointmentContainer/MainContainer"
 function Body() {
  
   return (

@@ -13,9 +13,23 @@
 - Add new appointement component
   - this component will have a form with all required fields in which we will fill our appointement details which is at last dispatched to the store.
   
+- Main Container component
+  - This container will consist of all the appointment cards.
+
+- Appointment Card component
+  - In this component appointment card will be there.
+  - In this Change and delete button is present
+    - Delete button will delete that particular entry of appointment.
+    - Change button will give you the input to edit your first name,last name and location.
+       - In this we are not allowing user to edit the appointments as of we are giving the user to add and delete a appointmnet.
+    - add button at appointment field will add a new appointment in a particular card.
+    - delete button will delete that a particular appointment.
+
 
   **Working of Redux Store**
   - In this from add New Appointment component we have pushed the data with full requirments and with multiple date and time.
+
+  - we had made deleteUser,editUser,deleteAppointment,addAppointment reducers to apply their work.
 
 **Now here we have to give a unique id to every user so we are using react-uuid package fo generating it.**
 

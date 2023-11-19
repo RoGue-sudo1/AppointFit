@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import uuid from "react-uuid";
 import { addNewUser, toggleAppointmentForm } from "../utils/store/userSlice";
 import Header from "./Header";
 
@@ -21,7 +20,6 @@ function AddNewAppointment() {
 
     dispatch(
       addNewUser({
-        userId: uuid(),
         firstName: firstName.current.value,
         lastName: lastName.current.value,
         location: location.current.value,

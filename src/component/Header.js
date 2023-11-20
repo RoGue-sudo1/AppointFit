@@ -2,28 +2,42 @@ import React from "react";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toggleAppointmentForm } from "../utils/store/userSlice";
+import { toggleAppointmentForm, toggleCalendarView } from "../utils/store/view";
+
 
 function Header() {
   const navigate = useNavigate();
   const dispatch =useDispatch()
-  const appointmentForm = useSelector((store) => store.user.appointmentForm);
+  const appointmentFormView = useSelector((store) => store.view.appointmentFormView);
+  const calendarView = useSelector((store)=>store.view.calendarView)
 
   const handleAddNewButtonClicked = () => {
     dispatch(toggleAppointmentForm())
+    
     navigate("/addNewAppointment");
     
   };
 
   const handleBackButtonClicked = () => {
-    dispatch(toggleAppointmentForm())
+   appointmentFormView && dispatch(toggleAppointmentForm())
+   calendarView && dispatch(toggleCalendarView())
     navigate("/");
   };
 
+  const handleCalendarButtonClicked = () => {
+    dispatch(toggleCalendarView())
+    navigate("/calendar");
+  };
+  const handleAppointFitLogoClicked = ()=>{
+    dispatch(toggleAppointmentForm())
+    dispatch(toggleCalendarView())
+    navigate("/");
+  }
+
   return (
     <div className=" flex justify-between align-middle shadow-md ">
-      {!appointmentForm ? (
-        <div className="flex cursor-pointer  p-2" onClick={()=>{navigate("/")}} >
+      {!(appointmentFormView || calendarView) ? (
+        <div className="flex cursor-pointer  p-2" onClick={handleAppointFitLogoClicked} >
           <img src="./logo.png" alt="Logo" className="w-14" />
           <h1 className="pt-2 text-green-900 text-2xl font-bold">AppointFit</h1>
         </div>
@@ -37,15 +51,18 @@ function Header() {
         </div>
       )}
       <div className="mr-4">
-        {!appointmentForm && <button
+        {!(appointmentFormView || calendarView) && <button
           className="p-2 bg-teal-600 mr-12 rounded-lg font-bold  m-4"
           onClick={handleAddNewButtonClicked}
         >
           Add New
         </button>}
-        <button className="p-2 bg-teal-600 -ml-8 rounded-lg font-bold  m-4">
+        {!(appointmentFormView || calendarView) && <button 
+        className="p-2 bg-teal-600 -ml-8 rounded-lg font-bold  m-4"
+        onClick={handleCalendarButtonClicked}
+        >
           Calendar
-        </button>
+        </button>}
       </div>
     </div>
   );

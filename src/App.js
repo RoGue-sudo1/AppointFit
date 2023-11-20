@@ -1,3 +1,4 @@
+import Calendar from "./component/calendar/Calendar.js";
 import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AddNewAppointment from "./component/AddNewAppointment";
@@ -22,8 +23,11 @@ const appRouter = createBrowserRouter([
   },
   {
     path:"/addNewAppointment",
-    element:<AddNewAppointment/>
-  
+    element:<AddNewAppointment/> 
+},
+{
+  path:"/calendar",
+  element:<Calendar/> 
 }
 ])
 

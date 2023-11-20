@@ -4,7 +4,7 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     users: [],
-    appointmentForm: false,
+    
   },
   reducers: {
     addNewUser: (state, action) => {
@@ -49,19 +49,19 @@ const userSlice = createSlice({
         newAppointment,
       ]; 
     },
-    toggleAppointmentForm: (state) => {
-      state.appointmentForm = !state.appointmentForm;
-    },
+   
+    
   },
 });
 
 export const {
   addNewUser,
-  toggleAppointmentForm,
+  
   deleteUser,
   appointmentDelete,
   editUserDetails,
   addNewAppointment,
+ 
 } = userSlice.actions;
 
 export default userSlice.reducer;

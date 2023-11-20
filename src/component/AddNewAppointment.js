@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addNewUser, toggleAppointmentForm } from "../utils/store/userSlice";
+import { addNewUser } from "../utils/store/userSlice";
+import { toggleAppointmentForm } from "../utils/store/view";
 import Header from "./Header";
 
 function AddNewAppointment() {

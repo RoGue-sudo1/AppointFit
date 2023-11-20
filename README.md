@@ -25,6 +25,9 @@
     - add button at appointment field will add a new appointment in a particular card.
     - delete button will delete that a particular appointment.
 
+- Calendar Component
+  - In my calendar component I ahve taken refrence of whole component from internet and binded it with my data and displayed it.
+  - In this compoonent when we clicked  on any date of the calendar it wil show the given appointment of that date.
 
   **Working of Redux Store**
   - In this from add New Appointment component we have pushed the data with full requirments and with multiple date and time.

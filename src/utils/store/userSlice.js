@@ -8,7 +8,9 @@ const userSlice = createSlice({
   },
   reducers: {
     addNewUser: (state, action) => {
-      state.users.push(action.payload);
+      const newUser = action.payload;
+      
+      state.users.push(newUser);
     },
     deleteUser: (state, action) => {
       const indexToDelete = action.payload;
@@ -18,19 +20,34 @@ const userSlice = createSlice({
     },
     editUserDetails: (state, action) => {
       const { userIndex, userInfo } = action.payload;
-      state.users = state.users.map((user, index) => {
-        if (index === userIndex) {
-          return { ...user, ...userInfo };
-        }
-        return user;
-      });
+    state.users = state.users.map((user, index) => {
+      if (index === userIndex) {
+        // Ensure appointments property is present
+        return { ...user, ...userInfo, appointments: user.appointments || [] };
+      }
+      return user;
+    });
+  
     },
     appointmentDelete: (state, action) => {
       const { index, appointmentIndex } = action.payload;
-
       state.users[index].appointments = state.users[index].appointments.filter(
         (appointment, index) => index !== appointmentIndex
       );
+    },
+    addNewAppointment: (state, action) => {
+      const { userIndex, newAppointment } = action.payload;
+      // const user = state.users[index];
+    
+     
+      // user.appointments = user.appointments || [];
+    
+    
+      // user.appointments.push(newAppointment);
+      state.users[userIndex].appointments = [
+        ...state.users[userIndex].appointments,
+        newAppointment,
+      ]; 
     },
     toggleAppointmentForm: (state) => {
       state.appointmentForm = !state.appointmentForm;
@@ -44,6 +61,7 @@ export const {
   deleteUser,
   appointmentDelete,
   editUserDetails,
+  addNewAppointment,
 } = userSlice.actions;
 
 export default userSlice.reducer;

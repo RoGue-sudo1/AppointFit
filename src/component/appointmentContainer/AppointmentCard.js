@@ -1,11 +1,13 @@
-import React, { useEffect,  useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
+  addNewAppointment,
   appointmentDelete,
   deleteUser,
   editUserDetails,
 } from "../../utils/store/userSlice";
 import { MdOutlineDeleteOutline } from "react-icons/md";
+import { IoMdAdd } from "react-icons/io";
 
 function AppointmentCard({ user, index }) {
   const dispatch = useDispatch();
@@ -15,6 +17,10 @@ function AppointmentCard({ user, index }) {
   const [lastNameChange, setLastNameChange] = useState(user.lastName);
   const [locationChange, setLocationChange] = useState(user.location);
 
+  const [newDate, setNewDate] = useState();
+  const [newTime, setNewTime] = useState();
+
+  const [newAppointmentChange, setNewAppointmentChange] = useState(false);
   const [change, setChange] = useState(false);
 
   useEffect(() => {
@@ -35,6 +41,11 @@ function AppointmentCard({ user, index }) {
     );
   };
 
+  const handleAddNewAppointmentClicked = () => {
+    setNewAppointmentChange(true);
+   
+  };
+
   const handleSaveButtonClicked = () => {
     dispatch(
       editUserDetails({
@@ -46,14 +57,30 @@ function AppointmentCard({ user, index }) {
         },
       })
     );
-    console.log(firstNameChange);
+
     setChange((prevState) => !prevState);
+  };
+
+  const handleAddNewAppointmentSaved = () => {
+    dispatch(
+      addNewAppointment({
+        userIndex: index,
+        newAppointment: {
+          date: newDate,
+          time: newTime,
+        },
+      })
+    );
+
+    
+
+    setNewAppointmentChange((prevState) => !prevState);
   };
 
   return (
     <div className=" p-2 w-[20%] shadow-lg mx-2 bg-teal-800 rounded-md m-2 ">
       <div className="mb-4">
-        <span className=" px-1 font-bold text-white">First Name</span>
+        <span className="px-1 font-bold text-xl text-white">First Name</span>
         <div className="shadow-lg px-2 py-1 bg-white my-1 flex justify-between rounded-md">
           {change ? (
             <input
@@ -72,18 +99,18 @@ function AppointmentCard({ user, index }) {
         </div>
       </div>
       <div className="mb-4">
-        <span className="px-1 font-bold text-white">Last Name</span>
+        <span className="px-1 font-bold text-xl text-white">Last Name</span>
         <div className="shadow-lg px-2 py-1 bg-white my-2 flex justify-between rounded-md">
           {change ? (
             <input
               type="text"
               value={lastNameChange}
-              placeholder="what is your last name"
+              placeholder="what is your last name?"
               onChange={(e) => {
                 setLastNameChange(e.target.value);
                 console.log(e.target.value);
               }}
-              className="focus:outline-none "
+              className="focus:outline-none"
             />
           ) : (
             <span className="font-normal">{user.lastName}</span>
@@ -91,7 +118,7 @@ function AppointmentCard({ user, index }) {
         </div>
       </div>
       <div className="mb-4">
-        <span className="px-1 font-bold text-white">Location</span>
+        <span className="px-1 font-bold text-xl text-white">Location</span>
         <div className="shadow-lg px-2 py-1 bg-white my-2 flex justify-between rounded-md">
           {change ? (
             <input
@@ -109,35 +136,74 @@ function AppointmentCard({ user, index }) {
         </div>
       </div>
       <div className="mb-4">
-        <span className="px-1 font-bold text-white">Appointments </span>
+        <div className="flex justify-between">
+          <div className="px-1 font-bold text-xl text-white">Appointments </div>
+
+          <div
+            className="bg-white font-bold text-xl rounded-md hover:bg-gray-200 cursor-pointer p-0.5 m-0.5"
+            onClick={() => {
+              handleAddNewAppointmentClicked();
+            }}
+          >
+            <IoMdAdd />
+          </div>
+        </div>
+
         <div className="shadow-lg px-2 py-1 bg-white my-1  rounded-md">
-          {appointmentUsers.map((appointment, appointmentIndex) => (
-            <div className="flex justify-between">
-              <span>
-                {appointment.date}
-                {" , "}
-                {appointment.time}
-              </span>
-              <span
-                className=" pt-1 bg-teal-800 text-white p-0.5 rounded-md m-1 cursor-pointer"
-                onClick={() => {
-                  handleAppointmentDelete(appointmentIndex);
-                }}
-              >
-                <MdOutlineDeleteOutline />
-              </span>
+          {newAppointmentChange ? (
+            <div className="flex-col w-screen">
+              <div>
+                <input
+                  className="w-64 mb-2 focus:outline-none"
+                  value={newDate}
+                  onChange={(e) => {
+                    setNewDate(e.target.value);
+                  }}
+                  type="date"
+                />
+              </div>
+              <div>
+                <input
+                  type="time"
+                  value={newTime}
+                  onChange={(e) => {
+                    setNewTime(e.target.value);
+                  }}
+                  className="w-64  focus:outline-none"
+                />
+              </div>
             </div>
-          ))}
+          ) : (
+            appointmentUsers.map((appointment, appointmentIndex) => (
+              <div className="flex justify-between">
+                <span>
+                  {appointment.date}
+                  {" , "}
+                  {appointment.time}
+                </span>
+                <span
+                  className=" pt-1 bg-teal-800 hover:bg-teal-600 text-white p-0.5 rounded-md m-1 cursor-pointer"
+                  onClick={() => {
+                    handleAppointmentDelete(appointmentIndex);
+                  }}
+                >
+                  <MdOutlineDeleteOutline />
+                </span>
+              </div>
+            ))
+          )}
         </div>
       </div>
 
       <div className=" ">
-        {change ? (
+        {change || newAppointmentChange ? (
           <div className="flex justify-center">
             <button
-              className="font-bold px-2 w-screen  py-2 hover:bg-gray-300 bg-white mt-1 rounded-md"
+              className="font-bold px-2 w-screen py-2 hover:bg-gray-300 bg-white mt-1 rounded-md"
               onClick={() => {
-                handleSaveButtonClicked();
+                newAppointmentChange
+                  ? handleAddNewAppointmentSaved()
+                  : handleSaveButtonClicked();
               }}
             >
               Save

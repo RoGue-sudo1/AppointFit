@@ -78,10 +78,10 @@ function AppointmentCard({ user, index }) {
   };
 
   return (
-    <div className=" p-2 w-[20%] shadow-lg mx-2 bg-teal-800 rounded-md m-2 ">
+    <div className=" p-2 w-[90%] h-fit md:w-[20%] shadow-lg mx-2 bg-teal-800 rounded-md m-2 ">
       <div className="mb-4">
         <span className="px-1 font-bold text-xl text-white">First Name</span>
-        <div className="shadow-lg px-2 py-1 bg-white my-1 flex justify-between rounded-md">
+        <div className="shadow-lg px-2 py-1 bg-white my-1 flex  justify-between rounded-md">
           {change ? (
             <input
               type="text"

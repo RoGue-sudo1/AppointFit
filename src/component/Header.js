@@ -1,4 +1,6 @@
 import React from "react";
+import { CiMenuBurger } from "react-icons/ci";
+import { IoClose } from "react-icons/io5";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -37,9 +39,9 @@ function Header() {
   return (
     <div className=" flex justify-between align-middle shadow-md ">
       {!(appointmentFormView || calendarView) ? (
-        <div className="flex cursor-pointer  p-2" onClick={handleAppointFitLogoClicked} >
-          <img src="./logo.png" alt="Logo" className="w-14" />
-          <h1 className="pt-2 text-green-900 text-2xl font-bold">AppointFit</h1>
+        <div className="flex cursor-pointer md:p-2 mt-3" onClick={handleAppointFitLogoClicked} >
+          <img src="./logo.png" alt="Logo" className="md:w-14 p-1 w-10 h-12" />
+          <h1 className="pt-2 text-green-900 md:text-2xl text-xl font-bold">AppointFit</h1>
         </div>
       ) : (
         <div
@@ -50,19 +52,20 @@ function Header() {
           <h1 className="-mt-1 ml-1 ">Back</h1>
         </div>
       )}
-      <div className="mr-4">
+      <div className="md:mr-4">
         {!(appointmentFormView || calendarView) && <button
-          className="p-2 bg-teal-600 mr-12 rounded-lg font-bold  m-4"
+          className="p-2 bg-teal-600 mr-12  rounded-lg font-bold  m-4"
           onClick={handleAddNewButtonClicked}
         >
           Add New
         </button>}
         {!(appointmentFormView || calendarView) && <button 
-        className="p-2 bg-teal-600 -ml-8 rounded-lg font-bold  m-4"
+        className="p-2 bg-teal-600 -ml-8 rounded-lg  font-bold m-4"
         onClick={handleCalendarButtonClicked}
         >
           Calendar
         </button>}
+
       </div>
     </div>
   );

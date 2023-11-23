@@ -10,7 +10,7 @@ function MainContainer() {
   }, [reduxUsers]);
 
   return (
-    <div className="flex  justify-center items-center flex-wrap h-screen">
+    <div className="flex flex-wrap pt-4 justify-center md:items-center w-screen h-screen">
       {users.map((user, index) => (
         <AppointmentCard key={user.userId} user={user} index={index} />
       ))}
